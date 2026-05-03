@@ -5,7 +5,7 @@ import {
   NavigationContextType,
   ObjectItem,
 } from "@/utils/types";
-import { resetEdges } from "@/utils/navigationHelper";
+import { resetEdges, lastCalculatedPath } from "@/utils/navigationHelper";
 
 export function useRouteDetails() {
   const { objects } = useContext(MapDataContext) as MapDataContextType;
@@ -52,6 +52,8 @@ export function useRouteDetails() {
 
   function handleLeave() {
     resetEdges();
+    // clear the cached path too
+    lastCalculatedPath.length = 0;
     setNavigation((prevNavigation) => ({
       ...prevNavigation,
       end: "",

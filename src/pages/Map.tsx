@@ -20,23 +20,26 @@ export const NavigationContext = createContext<NavigationContextType | null>(
 export const MapDataContext = createContext<MapDataContextType | null>(null);
 function Map() {
   let [searchParams, setSearchParams] = useSearchParams();
-  const DEFAULT_POSITION = "v35";
+  const DEFAULT_POSITION = "f1_v5";
   const startPosition = searchParams.get("position") || DEFAULT_POSITION;
   const [navigation, setNavigation] = useState<Navigation>({
     start: startPosition,
     end: "",
   });
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [currentFloor, setCurrentFloor] = useState<number>(1);
+
   const navigationValue: NavigationContextType = {
     navigation,
     setNavigation,
     isEditMode,
     setIsEditMode,
+    currentFloor,
+    setCurrentFloor,
   };
   const categories: Category[] = db.categories;
   const objects = (): ObjectItem[] => {
     const objectsData: ObjectItem[] = db.objects;
-    // Add categoryName to each object
     objectsData.forEach((obj) => {
       obj.categoryName = categories.find(
         (cat) => cat.id === obj.categoryId
@@ -53,13 +56,15 @@ function Map() {
   return (
     <MapDataContext.Provider value={mapData}>
       <NavigationContext.Provider value={navigationValue}>
-        <div className="flex bg-gray-100 text-gray-800 relative overflow-hidden w-full h-screen">
+        <div className="flex bg-gray-100 text-gray-800 relative w-full h-screen overflow-hidden">
           {isDesktop && <Sidebar />}
           <main
-            className={`flex w-full ${isDesktop && "-ml-96"} justify-center flex-grow flex-col md:p-10 p-2 transition-all duration-150 ease-in lg:ml-0`}
+            className={`flex w-full ${isDesktop && "-ml-96"} justify-center flex-col md:p-6 p-2 transition-all duration-150 ease-in lg:ml-0 overflow-hidden h-screen`}
           >
-            <Toolbar />
-            <div className="center w-full h-full">
+            <div className="flex-shrink-0">
+              <Toolbar />
+            </div>
+            <div className="center w-full flex-1 min-h-0 overflow-hidden">
               <IndoorMapWrapper />
             </div>
           </main>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { MapDataContext, NavigationContext } from "../pages/Map";
@@ -11,20 +11,37 @@ import { MapBackground, Paths, Positions, Objects } from "./IndoorMap";
 
 import Controls from "./MapControls";
 import ObjectDetailsModal from "./ObjectDetailsDialog";
-import { navigateToObject } from "@/utils/navigationHelper";
+import { navigateToObject, drawPathForFloor, lastCalculatedPath } from "@/utils/navigationHelper";
 import { toast } from "react-toastify";
 
 function IndoorMapWrapper() {
   const [modalOpen, setModalOpen] = useState(false);
   const [object, setObject] = useState<ObjectItem>({} as ObjectItem);
   const positionRadius = isMobile ? 10 : 8;
-  const { navigation, setNavigation, isEditMode, setIsEditMode } = useContext(
+  const { navigation, setNavigation, isEditMode, setIsEditMode, currentFloor, setCurrentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
+
+  useEffect(() => {
+    if (lastCalculatedPath.length > 0 && navigation.end) {
+      setTimeout(() => {
+        drawPathForFloor(lastCalculatedPath, currentFloor);
+      }, 100);
+    }
+  }, [currentFloor]);
+
   async function handleObjectClick(e: React.MouseEvent<SVGPathElement>) {
     if (!isEditMode) {
       const targetId = (e.target as HTMLElement).id;
+
+      // check if they clicked on the elevator area in the SVG background
+      if (targetId.toLowerCase().includes("elevator")) {
+        const otherFloor = currentFloor === 1 ? 2 : 1;
+        setCurrentFloor(otherFloor);
+        return;
+      }
+
       const selectedObject = objects.find((obj) => obj.name === targetId);
       if (selectedObject?.id) {
         setObject(selectedObject);
@@ -44,10 +61,10 @@ function IndoorMapWrapper() {
 
   function handleNavigationClick() {
     setModalOpen(false);
-    navigateToObject(object.name, navigation, setNavigation);
+    navigateToObject(object.name, navigation, setNavigation, setCurrentFloor);
   }
   return (
-    <div className="relative w-full h-full bg-white center">
+    <div className="relative w-full h-full bg-white center overflow-hidden">
       <ObjectDetailsModal
         open={modalOpen}
         object={object}
@@ -64,17 +81,15 @@ function IndoorMapWrapper() {
         wheel={{ smoothStep: 0.01 }}
       >
         <TransformComponent wrapperClass="bg-white">
-          <MapBackground>
-            {/*Objects are the clickable areas on the map e.g. Rooms, Desks, ...*/}
+          <MapBackground currentFloor={currentFloor}>
             <Objects
               handleObjectClick={handleObjectClick}
               className={
                 isEditMode ? "" : "hover:cursor-pointer hover:opacity-50"
               }
+              currentFloor={currentFloor}
             />
-            {/*Edges are the lines on the map aka the paths*/}
-            <Paths />
-            {/*Vertexes are the circles on the map aka the positions*/}
+            <Paths currentFloor={currentFloor} />
             <Positions
               positionRadius={positionRadius}
               handlePositionClick={handlePositionClick}
@@ -84,6 +99,7 @@ function IndoorMapWrapper() {
                   : "opacity-0"
               }
               navigation={navigation}
+              currentFloor={currentFloor}
             />
           </MapBackground>
         </TransformComponent>

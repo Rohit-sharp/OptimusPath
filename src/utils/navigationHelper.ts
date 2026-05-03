@@ -5,6 +5,7 @@ import { ObjectItem } from "./types";
 import { graphData } from "@/store/graphData";
 import { toast } from "react-toastify";
 export let routeLength = 0;
+export let lastCalculatedPath: string[] = [];
 
 const findVertexByObjectId = (vertexId: string) =>
   graphData.vertices.find((v) => v.objectName === vertexId);
@@ -12,7 +13,8 @@ const findVertexByObjectId = (vertexId: string) =>
 export function navigateToObject(
   selectedObjectId: string,
   navigation: NavigationContextType["navigation"],
-  setNavigation: NavigationContextType["setNavigation"]
+  setNavigation: NavigationContextType["setNavigation"],
+  setCurrentFloor?: Dispatch<SetStateAction<number>>
 ) {
   const target = findVertexByObjectId(selectedObjectId);
   if (!target) {
@@ -22,7 +24,45 @@ export function navigateToObject(
   }
 
   const shortestPath = graph.calculateShortestPath(navigation.start, target.id);
-  const pathString = shortestPath
+  lastCalculatedPath = shortestPath;
+
+  if (shortestPath.length === 0) {
+    toast.error("No route found");
+    return;
+  }
+
+  // figure out which floor to show first
+  // if route crosses floors we want to start on the floor the user is on
+  const startVertex = graphData.vertices.find((v) => v.id === navigation.start);
+  if (startVertex && setCurrentFloor) {
+    setCurrentFloor(startVertex.floor);
+  }
+
+  // draw the path on the current floor
+  drawPathForFloor(shortestPath, startVertex?.floor || 1);
+
+  setNavigation((prevNavigation) => ({
+    ...prevNavigation,
+    end: selectedObjectId,
+  }));
+}
+
+// draw the route path for a specific floor only
+export function drawPathForFloor(path: string[], floor: number) {
+  const floorNodes = path.filter((nodeId) => {
+    const v = graphData.vertices.find((vert) => vert.id === nodeId);
+    return v && v.floor === floor;
+  });
+
+  if (floorNodes.length < 2) {
+    // nothing to draw on this floor, just clear it
+    const navRoute = document.getElementById("navigation-route");
+    if (navRoute) navRoute.setAttribute("d", "");
+    return;
+  }
+
+  const firstNode = graphData.vertices.find((v) => v.id === floorNodes[0]);
+  const pathString = floorNodes
     .slice(1)
     .map((vertexId) => {
       const vertex = graphData.vertices.find((v) => v.id === vertexId);
@@ -30,14 +70,12 @@ export function navigateToObject(
     })
     .join(" ");
 
-  const startVertex = graphData.vertices.find((v) => v.id === navigation.start);
   const navigationRoutePath = document.getElementById("navigation-route");
-  if (navigationRoutePath && startVertex) {
+  if (navigationRoutePath && firstNode) {
     navigationRoutePath.setAttribute(
       "d",
-      `M${startVertex.cx} ${startVertex.cy} ${pathString}`
+      `M${firstNode.cx} ${firstNode.cy} ${pathString}`
     );
-    console.log("navigationRoutePath", navigationRoutePath);
     navigationRoutePath.classList.remove("path-once", "path-active");
     navigationRoutePath.classList.add("path-once");
     navigationRoutePath.addEventListener(
@@ -49,11 +87,6 @@ export function navigateToObject(
       { once: true }
     );
   }
-
-  setNavigation((prevNavigation) => ({
-    ...prevNavigation,
-    end: selectedObjectId,
-  }));
 }
 
 export function resetEdges() {

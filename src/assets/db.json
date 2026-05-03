@@ -1,196 +1,116 @@
 {
   "objects": [
     {
-      "id": "a1b2",
+      "id": "obj1",
+      "categoryId": "e928",
+      "name": "Coffee Bean",
+      "desc": "Fresh coffee and pastries",
+      "floor": 1
+    },
+    {
+      "id": "obj2",
       "categoryId": "a191",
-      "name": "MediaMarkt",
-      "desc": "Your go-to spot for the latest in electronics and appliances"
+      "name": "Tech Hub",
+      "desc": "Gadgets, phones and accessories",
+      "floor": 1
     },
     {
-      "id": "b2c3",
-      "categoryId": "e928",
-      "name": "KFC",
-      "desc": "A perfect place for enjoying crispy fried chicken and sides"
+      "id": "obj3",
+      "categoryId": "52f1",
+      "name": "Book Nook",
+      "desc": "Books, magazines and stationery",
+      "floor": 1
     },
     {
-      "id": "c3d4",
-      "categoryId": "e928",
-      "name": "McDonald's",
-      "desc": "Classic fast-food chain for burgers, fries, and quick meals"
-    },
-    {
-      "id": "d4e5",
-      "categoryId": "d21e",
-      "name": "Rolex",
-      "desc": "Swiss luxury watches for discerning customers"
-    },
-    {
-      "id": "e5f6",
-      "categoryId": "d21e",
-      "name": "Louis Vuitton",
-      "desc": "High-end bags, luggage, and accessories"
-    },
-    {
-      "id": "f6g7",
-      "categoryId": "d21e",
-      "name": "Gucci",
-      "desc": " Italian luxury fashion for trendsetters"
-    },
-    {
-      "id": "g7h8",
-      "categoryId": "d21e",
-      "name": "Chanel",
-      "desc": "Iconic fashion, fragrance, and accessory collections"
-    },
-    {
-      "id": "h8i9",
-      "categoryId": "87b0",
-      "name": "Levi's",
-      "desc": "he classic American denim and casual wear"
-    },
-    {
-      "id": "i9j0",
+      "id": "obj4",
       "categoryId": "58a9",
-      "name": "Mall Office",
-      "desc": "For all your mall inquiries and services"
+      "name": "Gym Zone",
+      "desc": "Fitness equipment and supplements",
+      "floor": 1
     },
     {
-      "id": "j0k1",
-      "categoryId": "87b0",
-      "name": "Zara",
-      "desc": "Latest trends in apparel and accessories"
-    },
-    {
-      "id": "k1l2",
-      "categoryId": "a191",
-      "name": "McShark",
-      "desc": "Specializing in Apple products and accessories"
-    },
-    {
-      "id": "l2m3",
-      "categoryId": "87b0",
-      "name": "Nike",
-      "desc": "Global leader in athletic footwear, apparel, and equipmen"
-    },
-    {
-      "id": "m3n4",
-      "categoryId": "87b0",
-      "name": "Adidas",
-      "desc": "Athletic wear and performance gear"
-    },
-    {
-      "id": "n4o5",
-      "categoryId": "52f1",
-      "name": "Primark",
-      "desc": "Affordable fashion for the whole family"
-    },
-    {
-      "id": "p6q7",
-      "categoryId": "87b0",
-      "name": "H&M",
-      "desc": "Fashion and quality at the best price"
-    },
-    {
-      "id": "q7r8",
-      "categoryId": "87b0",
-      "name": "Vans",
-      "desc": "Authentic skateboarding footwear and apparel"
-    },
-    {
-      "id": "r8s9",
+      "id": "obj5",
       "categoryId": "e928",
-      "name": "Starbucks",
-      "desc": "Your favorite brews and snacks"
+      "name": "Pizza Place",
+      "desc": "Wood-fired pizzas and Italian food",
+      "floor": 1
     },
     {
-      "id": "s9t0",
-      "categoryId": "52f1",
-      "name": "7-Eleven",
-      "desc": "Convenience store for your needs"
-    },
-    {
-      "id": "t0u1",
+      "id": "obj6",
       "categoryId": "87b0",
-      "name": "Victoria's Secret",
-      "desc": "Exquisite lingerie, sleepwear, and beauty products"
+      "name": "Fashion Hub",
+      "desc": "Trendy clothes and accessories",
+      "floor": 1
     },
     {
-      "id": "u1v2",
-      "categoryId": "d21e",
-      "name": "Pandora",
-      "desc": "Customizable charm bracelets, rings, and more"
-    },
-    {
-      "id": "v2w3",
-      "categoryId": "87b0",
-      "name": "Foot Locker",
-      "desc": "The latest in athletic footwear and apparel"
-    },
-    {
-      "id": "w3x4",
+      "id": "obj7",
       "categoryId": "52f1",
-      "name": "Pharmacy",
-      "desc": "Prescription drugs, health products, and wellness advice"
+      "name": "Toy World",
+      "desc": "Toys and games for all ages",
+      "floor": 1
     },
     {
-      "id": "x4y5",
-      "categoryId": "a191",
-      "name": "GameStop",
-      "desc": "Video games, consumer electronics, and gaming merchandise retailer"
-    },
-    {
-      "id": "y5z6",
-      "categoryId": "87b0",
-      "name": "Claire's",
-      "desc": "Accessories and jewelry for young girls and teenagers"
-    },
-    {
-      "id": "z6a7",
+      "id": "obj8",
       "categoryId": "52f1",
-      "name": "Tobacco Shop",
-      "desc": "Tobacco products and smoking accessories"
+      "name": "Pet Corner",
+      "desc": "Pet supplies and grooming",
+      "floor": 1
     },
     {
-      "id": "a7b8",
-      "categoryId": "52f1",
-      "name": "Sephora",
-      "desc": "Skincare, cosmetics, and fragrances"
-    },
-    {
-      "id": "b8c9",
-      "categoryId": "52f1",
-      "name": "PetSmart",
-      "desc": "Everything for your pet's needs, from food to grooming"
-    },
-    {
-      "id": "c9d0",
+      "id": "obj9",
       "categoryId": "58a9",
-      "name": "Barbershop",
-      "desc": "Classic and contemporary haircuts"
+      "name": "Cinema Hall",
+      "desc": "Latest movies in IMAX and 3D",
+      "floor": 2
     },
     {
-      "id": "d9d0",
+      "id": "obj10",
+      "categoryId": "a191",
+      "name": "Game Arcade",
+      "desc": "Arcade games and VR experiences",
+      "floor": 2
+    },
+    {
+      "id": "obj11",
+      "categoryId": "e928",
+      "name": "Food Court",
+      "desc": "Multiple food stalls and seating",
+      "floor": 2
+    },
+    {
+      "id": "obj12",
+      "categoryId": "58a9",
+      "name": "Spa Center",
+      "desc": "Relaxation and wellness treatments",
+      "floor": 2
+    },
+    {
+      "id": "obj13",
       "categoryId": "d21e",
-      "name": "Svarovski",
-      "desc": "Fine crystal jewelry and accessories"
+      "name": "Jewelry Box",
+      "desc": "Fine jewelry and watches",
+      "floor": 2
     },
     {
-      "id": "ab12",
-      "categoryId": "17b0",
-      "name": "East Wing Toilet",
-      "desc": ""
+      "id": "obj14",
+      "categoryId": "87b0",
+      "name": "Shoe Palace",
+      "desc": "Shoes for every occasion",
+      "floor": 2
     },
     {
-      "id": "ac12",
-      "categoryId": "17b0",
-      "name": "North Wing Toilet",
-      "desc": ""
+      "id": "obj15",
+      "categoryId": "52f1",
+      "name": "Art Gallery",
+      "desc": "Local and international art pieces",
+      "floor": 2
     },
     {
-      "id": "ac13",
-      "categoryId": "e753",
-      "name": "Entrance",
-      "desc": ""
+      "id": "obj16",
+      "categoryId": "a191",
+      "name": "Music Store",
+      "desc": "Instruments, vinyl and audio gear",
+      "floor": 2
     }
   ],
   "categories": [
@@ -221,14 +141,6 @@
     {
       "id": "87b0",
       "name": "Fashion"
-    },
-    {
-      "id": "17b0",
-      "name": "Sanitary"
-    },
-    {
-      "id": "e753",
-      "name": "Entrace"
     }
   ]
 }

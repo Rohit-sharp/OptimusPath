@@ -22,7 +22,7 @@ function SearchBar() {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const suggestionsRef = useRef<HTMLUListElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { navigation, setNavigation } = useContext(
+  const { navigation, setNavigation, setCurrentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
   const { setIsEditMode } = useContext(
@@ -77,7 +77,8 @@ function SearchBar() {
         navigateToObject(
           suggestions[selectedIndex].name,
           navigation,
-          setNavigation
+          setNavigation,
+          setCurrentFloor
         );
       }
     }
@@ -118,7 +119,6 @@ function SearchBar() {
       (obj) => obj.name.toLowerCase() === inputValue.trim().toLowerCase()
     );
     if (!matchingObject) {
-      //? To test the navigation feature
       if (inputValue === "Test") {
         const delay = 500;
         navigationTestAll(objects, 0, delay, navigation, setNavigation);
@@ -128,7 +128,7 @@ function SearchBar() {
         return;
       }
     }
-    navigateToObject(matchingObject.name, navigation, setNavigation);
+    navigateToObject(matchingObject.name, navigation, setNavigation, setCurrentFloor);
     setSelectedIndex(-1);
   }
 
@@ -172,7 +172,10 @@ function SearchBar() {
                     }`}
                     onMouseDown={() => handleSuggestionClick(obj)}
                   >
-                    {obj.name}
+                    <span>{obj.name}</span>
+                    {obj.floor && (
+                      <span className="text-xs text-gray-400 ml-2">F{obj.floor}</span>
+                    )}
                   </li>
                 ))
               ) : (

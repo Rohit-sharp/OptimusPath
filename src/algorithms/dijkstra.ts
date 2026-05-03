@@ -90,13 +90,12 @@ class DijkstraCalculator {
     this.adjacencyList[vertex1].push({ id: vertex2, weight });
     this.adjacencyList[vertex2].push({ id: vertex1, weight });
   }
-  // Example: Calculate shortest path from v1 to v5
-  //console.log(graph.calculateShortestPath("v1","v5")); // ["v1", "v3", "v4", "v5"]
+
   calculateShortestPath(start: NodeId, finish: NodeId) {
     const nodes = new PriorityQueue();
     const distances: { [key: NodeId]: number } = {};
     const previous: { [key: NodeId]: NodeId } = {};
-    const path = []; //to return at end
+    const path = [];
     let smallest: string | null = null;
     //build up initial state
     for (const vertex in this.adjacencyList) {
@@ -113,7 +112,6 @@ class DijkstraCalculator {
     while (nodes.values.length) {
       smallest = nodes.dequeue().id;
       if (smallest === finish) {
-        //WE ARE DONE
         //BUILD UP PATH TO RETURN AT END
         while (smallest && previous[smallest]) {
           path.push(smallest);
@@ -123,17 +121,12 @@ class DijkstraCalculator {
       }
       if (smallest || distances[smallest] !== Infinity) {
         for (const neighbor in this.adjacencyList[smallest]) {
-          //find neighboring node
           const nextNode = this.adjacencyList[smallest][neighbor];
-          //calculate new distance to neighboring node
           const candidate = distances[smallest] + nextNode.weight;
           const nextNeighbor = nextNode.id;
           if (candidate < distances[nextNeighbor]) {
-            //updating new smallest distance to neighbor
             distances[nextNeighbor] = candidate;
-            //updating previous - How we got to neighbor
             previous[nextNeighbor] = smallest;
-            //enqueue in priority queue with new priority
             nodes.enqueue(nextNeighbor, candidate);
           }
         }
@@ -148,7 +141,6 @@ class DijkstraCalculator {
     }
 
     if (finalPath.length <= 1) {
-      // if the final path has only 1 or fewer elements, there was no traversal that was possible.
       return [];
     }
 
@@ -163,15 +155,19 @@ graphData.vertices.forEach((vertex) => {
 });
 
 graphData.edges.forEach((edge) => {
-  //console.log(edge.from, edge.to);
-  const { from, to } = edge;
+  const { from, to, type } = edge;
   const fromVertex = graphData.vertices.find((vertex) => vertex.id === from);
   const toVertex = graphData.vertices.find((vertex) => vertex.id === to);
 
   if (fromVertex && toVertex) {
-    //add the distance between the two vertices as the weight of the edge
-    const length = calculateDistance(fromVertex, toVertex);
-    graph.addEdge(from, to, length);
+    if (type === "elevator") {
+      // elevator edges get a fixed cost - kinda like a penalty for taking elevator
+      // but not too high so the algorithm still uses it when needed
+      graph.addEdge(from, to, 50);
+    } else {
+      const length = calculateDistance(fromVertex, toVertex);
+      graph.addEdge(from, to, length);
+    }
   }
 });
 
@@ -179,4 +175,58 @@ function calculateDistance(vertex1: VertexData, vertex2: VertexData) {
   const dx = vertex2.cx - vertex1.cx;
   const dy = vertex2.cy - vertex1.cy;
   return Math.sqrt(dx * dx + dy * dy);
+}
+
+// figure out which floors the route goes through
+export function getRouteFloors(path: string[]): number[] {
+  const floors: number[] = [];
+  for (const nodeId of path) {
+    const vertex = graphData.vertices.find((v) => v.id === nodeId);
+    if (vertex && !floors.includes(vertex.floor)) {
+      floors.push(vertex.floor);
+    }
+  }
+  return floors;
+}
+
+// check if route crosses floors
+export function routeCrossesFloors(path: string[]): boolean {
+  const floors = getRouteFloors(path);
+  return floors.length > 1;
+}
+
+// get direction steps for the route
+export function getDirectionSteps(path: string[]) {
+  const steps: { text: string; floor: number }[] = [];
+  
+  for (let i = 0; i < path.length; i++) {
+    const currentVertex = graphData.vertices.find((v) => v.id === path[i]);
+    const nextVertex = i < path.length - 1 
+      ? graphData.vertices.find((v) => v.id === path[i + 1]) 
+      : null;
+
+    if (!currentVertex) continue;
+
+    // check if this is the start
+    if (i === 0) {
+      const name = currentVertex.objectName || currentVertex.id;
+      steps.push({ text: `Start at ${name}`, floor: currentVertex.floor });
+    }
+
+    // check if we're crossing floors (elevator transition)
+    if (nextVertex && currentVertex.floor !== nextVertex.floor) {
+      steps.push({
+        text: `Take Elevator A to Floor ${nextVertex.floor}`,
+        floor: currentVertex.floor,
+      });
+    }
+
+    // last node = destination
+    if (i === path.length - 1) {
+      const name = currentVertex.objectName || currentVertex.id;
+      steps.push({ text: `Arrive at ${name}`, floor: currentVertex.floor });
+    }
+  }
+
+  return steps;
 }

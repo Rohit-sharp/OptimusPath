@@ -1,124 +1,29 @@
-> [!TIP]
-> Looking for a more advanced indoor navigation solution?
-> Try [OpenIndoorMaps](https://github.com/openindoormap/openindoormaps) - featuring map editing, 3D views, and outdoor map integration.
+# PathPal - Indoor Wayfinding (Multi-Floor Extension)
 
-# Pathpal: Web-Based Indoor Wayfinder
+## What I Added
 
-Pathpal is an innovative web application designed to revolutionize indoor navigation. Using interactive maps and efficient pathfinding algorithms, it offers an intuitive solution for navigating complex indoor spaces.
-<br>
-**Demo:** [Visit Pathpal](https://indoor-wayfinder.vercel.app)
+I extended the existing indoor wayfinding app to support **multi-floor navigation**. Here's what's new:
 
-## Table of Content:
+- **Floor Selector** — simple tab buttons (1 / 2) in the toolbar to switch between floors
+- **Two floor maps** — created `floor-1.svg` and `floor-2.svg` with different shops on each floor
+- **Extended navigation graph** — each floor has its own set of nodes and edges, connected by an elevator edge
+- **Cross-floor Dijkstra routing** — the algorithm now works across floors. Elevator edges have a fixed weight so the pathfinder can route through them when needed
+- **Direction steps** — when a route goes through the elevator, a "Directions" panel shows up with steps like "Take Elevator A to Floor 2". You can click the elevator step to switch the map view to that floor
+- **Route visualization per floor** — the path is drawn only for the floor you're currently viewing. Switch floors to see the rest of the route
 
-- [Pathpal: Web-Based Indoor Wayfinder](#pathpal-web-based-indoor-wayfinder)
-  - [Table of Content:](#table-of-content)
-  - [About The App](#about-the-app)
-  - [Screenshots](#screenshots)
-  - [Features](#features)
-  - [Technologies](#technologies)
-  - [Setup](#setup)
-  - [Technical Insights](#technical-insights)
-    - [Map Technology](#map-technology)
-    - [Pathfinding](#pathfinding)
-    - [Core Map Technology](#core-map-technology)
-    - [Path Drawing and Wayfinding](#path-drawing-and-wayfinding)
-    - [Customizing the Map](#customizing-the-map)
-  - [Credits](#credits)
-  - [License](#license)
+## How to Run
 
-## About The App
+```bash
+npm install
+npm run dev
+```
 
-This project is a variation of my diploma project, focusing on an interactive map for indoor wayfinding and navigation. It features an interactive SVG map and utilizes the Dijkstra algorithm to calculate the shortest path to points of interest (POIs). Originally, the application experimented with indoor positioning using BLE technology, but due to ithe experimental nature of the Bluetooth Web API, it has been omitted in this variation.
+Then open `http://localhost:5173` in your browser.
 
-> [!WARNING]  
-> The backend of this project has been removed. All data are stored in a JSON file. This project is a prototype and should not be used for production purposes. Please check out my new project [OpenIndoorMaps](https://github.com/yourusername/OpenIndoorMaps) for a more comprehensive solution.
+**To test cross-floor routing:** search for a shop on Floor 2 (like "Cinema Hall") while your position is on Floor 1. You should see the directions panel and the route going to the elevator.
 
-## Screenshots
+## Challenges
 
-<table style="border-radius: 10px;  border: 1px solid gray;">
-  <tr >
-    <td align="center"><img src="media/indoor-map-details.png"/></td>
-   <td align="center"><h3 >Displaying Object Information on Click</h3></td>
-  </tr>
-    <tr>
-    <td align="center"><img src="media/indoor-wayfinding.png"/></td>
-    <td align="center"><h3>Demonstration of Shortest Path Calculation</h3></td>
-  </tr>
-</table>
+1. **Drawing the path per-floor** was a bit tricky. The original code drew the entire route as one SVG path, but with multi-floor you only want to show the segment for the current floor. I ended up filtering the path nodes by floor before drawing, and added a small timeout when switching floors so the SVG has time to re-render before we draw on it (felt hacky but it works).
 
-## Features
-
-- **Interactive SVG Maps**: Navigate complex indoor spaces with ease.
-- **Dijkstra Pathfinding**: Calculates the shortest path to your destination.
-- **Responsive Design**: Optimized for any device and screen size.
-- **Customizable POIs**: Edit names and categories of points of interest.
-- **Pinch-to-Zoom**: Effortlessly zoom in and out on maps with touch gestures.
-
-## Technologies
-
-Pathpal is built with the latest web technologies for speed, efficiency, and adaptability:
-
-- React
-- Vite
-- TypeScript
-- TailwindCSS
-- SVG
-- Dijkstra's Algorithm
-
-## Setup
-
-Follow these steps to get the project up and running:
-
-1. **Clone the Repository**: Use your preferred Git client to clone this repository to your local machine.
-
-2. **Install Node.js**: This project requires Node.js. If you don't have Node.js version 21 installed, you can download and install it from [nodejs.org](https://nodejs.org/).
-
-3. **Install Dependencies**: Navigate to the project directory in your terminal and run the following command to install the necessary dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. **Start the Application**: Once the dependencies are installed, you can start the application by running the following command in your terminal:
-
-   ```bash
-   npm run dev
-   ```
-
-After running these commands, your default web browser should automatically open and navigate to `localhost:5173`, where you can see the running application.
-
-## Technical Insights
-
-### Map Technology
-
-- **SVG Format**: The map is primarily SVG for its flexibility and interactive capabilities, ideal for detailed navigation.
-- **Image Format Support**: Supports various formats like PNG and JPEG for map backgrounds, with interactive features best suited for SVG.
-
-### Pathfinding
-
-- **Routes Definition**: Paths within the map represent navigable routes, essential for the Dijkstra algorithm to calculate efficient paths.
-- **Dijkstra Algorithm**: Ensures accurate and swift navigation between POIs.
-
-### Core Map Technology
-
-- **SVG as the Default Format**: The application primarily uses an SVG (Scalable Vector Graphics) file for the map due to its scalability and ease of manipulation. SVGs allow for interactive and dynamic rendering of indoor spaces, making them ideal for detailed navigation paths.
-- **Support for Various Image Formats**: While SVG is the default, the system is designed to accommodate any image format (e.g., PNG, JPEG) as a map background. This flexibility ensures that developers can use existing floor plans or maps without needing to convert them to SVG. However, the primary interactive and navigational features are optimized for SVG.
-
-### Path Drawing and Wayfinding
-
-- **Path Drawing**: For navigation to function, paths must be defined within the map. These paths represent walkable routes and are crucial for the wayfinding algorithm. In SVG files, paths can be drawn and edited directly, allowing for precise control over navigation routes.
-- **Wayfinding Algorithm**: The application utilizes the Dijkstra algorithm for calculating the shortest path between points of interest (POIs) on the map. This algorithm operates on the network of paths drawn on the map, ensuring efficient and accurate navigation.
-
-### Customizing the Map
-
-- **Editing Tools**: Developers have the option to utilize vector graphic editing tools such as Adobe Illustrator or Boxy SVG for modifying the SVG map. This modification can involve updating layouts, adding or removing Points of Interest (POIs), and adjusting paths. Refer to the screenshot below to see an example of map editing using Boxy SVG. For converting SVG to JSX, [Transform Tools](https://transform.tools/) can be a useful resource.
-
-![IndoorMap Editing Example](media/map-editing-preview.png)
-
-## Credits
-
-This project was inspired by my diploma work and significantly influenced by the support of mentors, peers, and resources like [maciejb2k's pathfinding app](https://github.com/maciejb2k/pathfinding_app).
-
-## License
-
-Pathpal is open-sourced under the MIT License. Contributions and feedback are welcome!
+2. **Elevator weight tuning** — I wasn't sure what cost to give the elevator edge. Too low and the algorithm would route through it unnecessarily, too high and it would never use it. Settled on a fixed weight of 50 which seems to work fine for the map scale I'm using.

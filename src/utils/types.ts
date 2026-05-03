@@ -4,6 +4,7 @@ export interface ObjectItem {
   desc: string;
   categoryId: string;
   categoryName?: string;
+  floor?: number;
 }
 export interface Category {
   id: string;
@@ -26,6 +27,8 @@ export interface NavigationContextType {
   setNavigation: React.Dispatch<React.SetStateAction<Navigation>>;
   isEditMode: boolean;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  currentFloor: number;
+  setCurrentFloor: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface MapDataContextType {

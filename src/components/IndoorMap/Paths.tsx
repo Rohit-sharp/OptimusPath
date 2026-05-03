@@ -1,9 +1,16 @@
+import { getEdgesForFloor } from "@/store/graphData";
 import { graphData } from "@/store/graphData";
 
-function Paths() {
+interface PathsProps {
+  currentFloor: number;
+}
+
+function Paths({ currentFloor }: PathsProps) {
+  const floorEdges = getEdgesForFloor(currentFloor);
+
   return (
     <g id="Edges">
-      {graphData.edges.map((edge) => {
+      {floorEdges.map((edge) => {
         const { id, from, to } = edge;
         const fromVertex = graphData.vertices.find(
           (vertex) => vertex.id === from

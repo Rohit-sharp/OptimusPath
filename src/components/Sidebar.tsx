@@ -19,7 +19,7 @@ interface ParsedObjects {
 }
 
 function Sidebar() {
-  const { navigation, setNavigation, setIsEditMode } = useContext(
+  const { navigation, setNavigation, setIsEditMode, setCurrentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
@@ -49,7 +49,7 @@ function Sidebar() {
     setIsEditMode(false);
     if (!object) return;
     console.log(object);
-    navigateToObject(object.name, navigation, setNavigation);
+    navigateToObject(object.name, navigation, setNavigation, setCurrentFloor);
   }
 
   return (
@@ -113,6 +113,11 @@ function Sidebar() {
                     <div className="m-1">
                       <p className="text-xs 2xl:text-sm font-semibold">
                         {item.name}
+                        {item.floor && (
+                          <span className="text-gray-400 ml-1 font-normal">
+                            (F{item.floor})
+                          </span>
+                        )}
                       </p>
                       <p className="text-xs 2xl:text-sm  text-gray-600">
                         {item.desc}

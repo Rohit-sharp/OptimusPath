@@ -5,14 +5,34 @@ import { isDesktop } from "react-device-detect";
 import EditPositionButton from "./EditPositionButton";
 import DesktopRouteDetails from "./DesktopRouteDetails";
 import SearchBar from "./SearchBar";
+import FloorSelector from "./FloorSelector";
+import DirectionSteps from "./DirectionSteps";
+import { drawPathForFloor, lastCalculatedPath } from "@/utils/navigationHelper";
 
 function Toolbar() {
-  const { navigation } = useContext(NavigationContext) as NavigationContextType;
+  const { navigation, currentFloor, setCurrentFloor } = useContext(NavigationContext) as NavigationContextType;
+
+  function handleFloorChange(floor: number) {
+    setCurrentFloor(floor);
+    // redraw path for the new floor if theres an active route
+    if (lastCalculatedPath.length > 0) {
+      setTimeout(() => {
+        drawPathForFloor(lastCalculatedPath, floor);
+      }, 150);
+    }
+  }
+
   return (
-    <div className="flex space-x-1 mb-4 h-12 relative">
-      <SearchBar />
-      <EditPositionButton />
-      {navigation.end && isDesktop && <DesktopRouteDetails />}
+    <div className="flex flex-col gap-1 mb-2 relative">
+      <div className="flex space-x-1 h-12 items-center">
+        <SearchBar />
+        <EditPositionButton />
+        <FloorSelector currentFloor={currentFloor} onFloorChange={handleFloorChange} />
+        {navigation.end && isDesktop && <DesktopRouteDetails />}
+      </div>
+      {navigation.end && (
+        <DirectionSteps onFloorChange={handleFloorChange} />
+      )}
     </div>
   );
 }
