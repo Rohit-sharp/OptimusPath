@@ -3,144 +3,144 @@
     {
       "id": "obj1",
       "categoryId": "e928",
-      "name": "Coffee Bean",
-      "desc": "Fresh coffee and pastries",
+      "name": "Nurse's Station",
+      "desc": "Central desk for nursing staff and patient coordination",
       "floor": 1
     },
     {
       "id": "obj2",
       "categoryId": "a191",
-      "name": "Tech Hub",
-      "desc": "Gadgets, phones and accessories",
+      "name": "ICU",
+      "desc": "Intensive Care Unit for critically ill patients",
       "floor": 1
     },
     {
       "id": "obj3",
       "categoryId": "52f1",
-      "name": "Book Nook",
-      "desc": "Books, magazines and stationery",
+      "name": "Pharmacy",
+      "desc": "Prescription refills and medical supplies",
       "floor": 1
     },
     {
       "id": "obj4",
       "categoryId": "58a9",
-      "name": "Gym Zone",
-      "desc": "Fitness equipment and supplements",
+      "name": "Operating Room",
+      "desc": "Sterile theater for surgical procedures",
       "floor": 1
     },
     {
       "id": "obj5",
-      "categoryId": "e928",
-      "name": "Pizza Place",
-      "desc": "Wood-fired pizzas and Italian food",
+      "categoryId": "87b0",
+      "name": "Male Ward",
+      "desc": "Inpatient recovery rooms for male patients",
       "floor": 1
     },
     {
       "id": "obj6",
       "categoryId": "87b0",
-      "name": "Fashion Hub",
-      "desc": "Trendy clothes and accessories",
+      "name": "Female Ward",
+      "desc": "Inpatient recovery rooms for female patients",
       "floor": 1
     },
     {
       "id": "obj7",
-      "categoryId": "52f1",
-      "name": "Toy World",
-      "desc": "Toys and games for all ages",
+      "categoryId": "d21e",
+      "name": "Radiology",
+      "desc": "X-Ray, MRI, and CT imaging diagnostics",
       "floor": 1
     },
     {
       "id": "obj8",
       "categoryId": "52f1",
-      "name": "Pet Corner",
-      "desc": "Pet supplies and grooming",
+      "name": "Morgue",
+      "desc": "Secure mortuary facility",
       "floor": 1
     },
     {
       "id": "obj9",
-      "categoryId": "58a9",
-      "name": "Cinema Hall",
-      "desc": "Latest movies in IMAX and 3D",
+      "categoryId": "e928",
+      "name": "Outpatient Clinic",
+      "desc": "General medical checkups and consultations",
       "floor": 2
     },
     {
       "id": "obj10",
       "categoryId": "a191",
-      "name": "Game Arcade",
-      "desc": "Arcade games and VR experiences",
+      "name": "Cardiology Unit",
+      "desc": "Specialized care for heart conditions",
       "floor": 2
     },
     {
       "id": "obj11",
       "categoryId": "e928",
-      "name": "Food Court",
-      "desc": "Multiple food stalls and seating",
+      "name": "Cafeteria",
+      "desc": "Hot meals, snacks, and drinks for staff and visitors",
       "floor": 2
     },
     {
       "id": "obj12",
       "categoryId": "58a9",
-      "name": "Spa Center",
-      "desc": "Relaxation and wellness treatments",
+      "name": "Physical Therapy",
+      "desc": "Rehabilitation and physical therapy services",
       "floor": 2
     },
     {
       "id": "obj13",
       "categoryId": "d21e",
-      "name": "Jewelry Box",
-      "desc": "Fine jewelry and watches",
+      "name": "Laboratory",
+      "desc": "Blood tests and pathology diagnostics",
       "floor": 2
     },
     {
       "id": "obj14",
       "categoryId": "87b0",
-      "name": "Shoe Palace",
-      "desc": "Shoes for every occasion",
+      "name": "Administration",
+      "desc": "Hospital management and billing office",
       "floor": 2
     },
     {
       "id": "obj15",
       "categoryId": "52f1",
-      "name": "Art Gallery",
-      "desc": "Local and international art pieces",
+      "name": "Chapel",
+      "desc": "Quiet place for prayer and reflection",
       "floor": 2
     },
     {
       "id": "obj16",
-      "categoryId": "a191",
-      "name": "Music Store",
-      "desc": "Instruments, vinyl and audio gear",
+      "categoryId": "52f1",
+      "name": "Gift Shop",
+      "desc": "Flowers, cards, and patient comfort items",
       "floor": 2
     }
   ],
   "categories": [
     {
       "id": "52f1",
-      "name": "Retail"
+      "name": "Clinical Support"
     },
     {
       "id": "e928",
-      "name": "Food"
+      "name": "General Services"
     },
     {
       "id": "58a9",
-      "name": "Services"
+      "name": "Treatment & Therapy"
     },
     {
       "id": "16be",
-      "name": "Health & Beauty"
+      "name": "Wellness & Recovery"
     },
     {
       "id": "d21e",
-      "name": "Luxury Goods"
+      "name": "Diagnostics & Labs"
     },
     {
       "id": "a191",
-      "name": "Electronics"
+      "name": "Specialized Care"
     },
     {
       "id": "87b0",
-      "name": "Fashion"
+      "name": "Administration & Wards"
     }
   ]
 }

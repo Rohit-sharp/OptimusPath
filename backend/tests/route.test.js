@@ -25,7 +25,7 @@ describe("Vertex lookup", () => {
 	test("getVertexById returns the right vertex", () => {
 		const v = getVertexById("f1_v1");
 		expect(v).not.toBeNull();
-		expect(v.objectName).toBe("Coffee Bean");
+		expect(v.objectName).toBe("Nurse's Station");
 		expect(v.floor).toBe(1);
 	});
 
@@ -34,13 +34,13 @@ describe("Vertex lookup", () => {
 	});
 
 	test("findVertexByName finds a store by name (exact)", () => {
-		const v = findVertexByName("Coffee Bean");
+		const v = findVertexByName("Nurse's Station");
 		expect(v).not.toBeNull();
 		expect(v.id).toBe("f1_v1");
 	});
 
 	test("findVertexByName is case-insensitive", () => {
-		const v = findVertexByName("coffee bean");
+		const v = findVertexByName("nurse's station");
 		expect(v).not.toBeNull();
 		expect(v.id).toBe("f1_v1");
 	});
@@ -75,7 +75,7 @@ describe("Pathfinding", () => {
 	});
 
 	test("accepts store names as start/end", () => {
-		const result = findRoute("Coffee Bean", "Tech Hub");
+		const result = findRoute("Nurse's Station", "ICU");
 		expect(result.ok).toBe(true);
 		// adjacent stores on top row: f1_v1 -> f1_v5 -> f1_v6 -> f1_v2
 		expect(result.route.path[0]).toBe("f1_v1");
@@ -83,14 +83,14 @@ describe("Pathfinding", () => {
 	});
 
 	test("returns 400 for unknown start", () => {
-		const result = findRoute("DoesNotExist", "Coffee Bean");
+		const result = findRoute("DoesNotExist", "Nurse's Station");
 		expect(result.ok).toBe(false);
 		expect(result.status).toBe(400);
 		expect(result.error).toMatch(/Unknown start/);
 	});
 
 	test("returns 400 for unknown end", () => {
-		const result = findRoute("Coffee Bean", "DoesNotExist");
+		const result = findRoute("Nurse's Station", "DoesNotExist");
 		expect(result.ok).toBe(false);
 		expect(result.status).toBe(400);
 		expect(result.error).toMatch(/Unknown end/);

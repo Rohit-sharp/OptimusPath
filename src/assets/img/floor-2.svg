@@ -19,29 +19,29 @@
 
   <!-- Rooms - top row -->
   <rect x="80" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="180" y="200" class="label">Cinema Hall</text>
+  <text x="180" y="200" class="label">Outpatient Clinic</text>
 
   <rect x="310" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="410" y="200" class="label">Game Arcade</text>
+  <text x="410" y="200" class="label">Cardiology Unit</text>
 
   <rect x="540" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="640" y="200" class="label">Food Court</text>
+  <text x="640" y="200" class="label">Cafeteria</text>
 
   <rect x="770" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="870" y="200" class="label">Spa Center</text>
+  <text x="870" y="200" class="label">Physical Therapy</text>
 
   <!-- Rooms - bottom row -->
   <rect x="80" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="180" y="620" class="label">Jewelry Box</text>
+  <text x="180" y="620" class="label">Laboratory</text>
 
   <rect x="310" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="410" y="620" class="label">Shoe Palace</text>
+  <text x="410" y="620" class="label">Administration</text>
 
   <rect x="540" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="640" y="620" class="label">Art Gallery</text>
+  <text x="640" y="620" class="label">Chapel</text>
 
   <rect x="770" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="870" y="620" class="label">Music Store</text>
+  <text x="870" y="620" class="label">Gift Shop</text>
 
   <!-- Elevator -->
   <rect x="1020" y="340" width="100" height="120" rx="6" class="elevator-zone"/>

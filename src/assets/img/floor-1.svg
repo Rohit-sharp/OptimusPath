@@ -19,29 +19,29 @@
 
   <!-- Rooms - top row -->
   <rect x="80" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="180" y="200" class="label">Coffee Bean</text>
+  <text x="180" y="200" class="label">Nurse's Station</text>
 
   <rect x="310" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="410" y="200" class="label">Tech Hub</text>
+  <text x="410" y="200" class="label">ICU</text>
 
   <rect x="540" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="640" y="200" class="label">Book Nook</text>
+  <text x="640" y="200" class="label">Pharmacy</text>
 
   <rect x="770" y="80" width="200" height="220" rx="4" class="room"/>
-  <text x="870" y="200" class="label">Gym Zone</text>
+  <text x="870" y="200" class="label">Operating Room</text>
 
   <!-- Rooms - bottom row -->
   <rect x="80" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="180" y="620" class="label">Pizza Place</text>
+  <text x="180" y="620" class="label">Male Ward</text>
 
   <rect x="310" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="410" y="620" class="label">Fashion Hub</text>
+  <text x="410" y="620" class="label">Female Ward</text>
 
   <rect x="540" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="640" y="620" class="label">Toy World</text>
+  <text x="640" y="620" class="label">Radiology</text>
 
   <rect x="770" y="500" width="200" height="220" rx="4" class="room"/>
-  <text x="870" y="620" class="label">Pet Corner</text>
+  <text x="870" y="620" class="label">Morgue</text>
 
   <!-- Elevator -->
   <rect x="1020" y="340" width="100" height="120" rx="6" class="elevator-zone"/>
