@@ -1,64 +1,56 @@
 import { useContext, useEffect, useState } from "react";
 import { MapDataContext, NavigationContext } from "@/pages/Map";
-import {
-  MapDataContextType,
-  NavigationContextType,
-  ObjectItem,
-} from "@/utils/types";
-import { resetEdges, lastCalculatedPath } from "@/utils/navigationHelper";
+import { MapDataContextType, NavigationContextType, ObjectItem } from "@/utils/types";
+import { resetEdges, clearCalculatedRoute } from "@/utils/navigationHelper";
 
 export function useRouteDetails() {
-  const { objects } = useContext(MapDataContext) as MapDataContextType;
-  const { navigation, setNavigation } = useContext(
-    NavigationContext
-  ) as NavigationContextType;
-  const [object, setObject] = useState<ObjectItem | null>(null);
-  const [routeDetails, setRouteDetails] = useState({
-    routeLength: 0,
-    walkingTime: 0,
-    rightRouteLength: 0,
-  });
+	const { objects } = useContext(MapDataContext) as MapDataContextType;
+	const { navigation, setNavigation } = useContext(NavigationContext) as NavigationContextType;
+	const [object, setObject] = useState<ObjectItem | null>(null);
+	const [routeDetails, setRouteDetails] = useState({
+		routeLength: 0,
+		walkingTime: 0,
+		rightRouteLength: 0,
+	});
 
-  useEffect(() => {
-    const fetchObject = async () => {
-      try {
-        if (!navigation.end) return;
-        objects.forEach((obj) => {
-          if (obj.name === navigation.end) {
-            setObject(obj);
-          }
-        });
-      } catch (error) {
-        console.error(`Error fetching object by ID: ${navigation.end}`, error);
-      }
-    };
+	useEffect(() => {
+		const fetchObject = async () => {
+			try {
+				if (!navigation.end) return;
+				objects.forEach((obj) => {
+					if (obj.name === navigation.end) {
+						setObject(obj);
+					}
+				});
+			} catch (error) {
+				console.error(`Error fetching object by ID: ${navigation.end}`, error);
+			}
+		};
 
-    const calculateRouteDetails = () => {
-      const navigationRoutePath = document.getElementById(
-        "navigation-route"
-      ) as SVGPathElement | null;
-      const routeLength = navigationRoutePath?.getTotalLength() || 0;
-      const mapRatio = 20; // fictional ratio
-      const walkingSpeed = 1.4; // m/s
-      const rightRouteLength = Math.round((routeLength / mapRatio) * 10) / 10;
-      const walkingTime = Math.round(rightRouteLength / walkingSpeed);
+		const calculateRouteDetails = () => {
+			const navigationRoutePath = document.getElementById("navigation-route") as SVGPathElement | null;
+			const routeLength = navigationRoutePath?.getTotalLength() || 0;
+			const mapRatio = 20; // fictional ratio
+			const walkingSpeed = 1.4; // m/s
+			const rightRouteLength = Math.round((routeLength / mapRatio) * 10) / 10;
+			const walkingTime = Math.round(rightRouteLength / walkingSpeed);
 
-      setRouteDetails({ routeLength, walkingTime, rightRouteLength });
-    };
+			setRouteDetails({ routeLength, walkingTime, rightRouteLength });
+		};
 
-    fetchObject();
-    calculateRouteDetails();
-  }, [navigation.end]);
+		fetchObject();
+		calculateRouteDetails();
+	}, [navigation.end]);
 
-  function handleLeave() {
-    resetEdges();
-    // clear the cached path too
-    lastCalculatedPath.length = 0;
-    setNavigation((prevNavigation) => ({
-      ...prevNavigation,
-      end: "",
-    }));
-  }
+	function handleLeave() {
+		resetEdges();
+		// clear the cached route too
+		clearCalculatedRoute();
+		setNavigation((prevNavigation) => ({
+			...prevNavigation,
+			end: "",
+		}));
+	}
 
-  return { object, ...routeDetails, handleLeave };
+	return { object, ...routeDetails, handleLeave };
 }
