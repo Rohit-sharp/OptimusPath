@@ -1,8 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const { initDb } = require('./db/database');
-const deskRoutes = require('./routes/deskRoutes');
-const bookingRoutes = require('./routes/bookingRoutes');
+const express = require("express");
+const cors = require("cors");
+const { initDb } = require("./db/database");
+const deskRoutes = require("./routes/deskRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
+const routeRoutes = require("./routes/routeRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,17 +16,18 @@ app.use(express.json());
 initDb();
 
 // Routes
-app.use('/api/desks', deskRoutes);
-app.use('/api/bookings', bookingRoutes);
+app.use("/api/desks", deskRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/route", routeRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get("/api/health", (req, res) => {
+	res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Desk Booking API running on http://localhost:${PORT}`);
+	console.log(`Desk Booking API running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
