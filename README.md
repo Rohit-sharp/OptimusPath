@@ -255,18 +255,3 @@ The desk coordinates match the SVG viewBox so they show up in the right spots on
 - Jest (testing)
 - Docker (optional deployment)
 
-## Things I'd add if I had more time
-
-- WebSockets instead of polling so desk status updates instantly
-- Actual login/JWT auth instead of mock user IDs
-- Rate limiting on the booking endpoint
-- Recurring bookings (like "every Monday 9-11")
-- Better mobile layout for the booking panel
-
-## Some notes on stuff that tripped me up
-
-1. **Drawing the path per-floor** was a bit tricky. The original code drew the entire route as one SVG path, but with multi-floor you only want to show the segment for the current floor. I ended up filtering the path nodes by floor before drawing, and added a small timeout when switching floors so the SVG has time to re-render before we draw on it (felt hacky but it works).
-
-2. **Elevator weight tuning** — I wasn't sure what cost to give the elevator edge. Too low and the algorithm would route through it unnecessarily, too high and it would never use it. Settled on a fixed weight of 50 which seems to work fine for the map scale I'm using.
-
-3. **Desk status being computed vs stored** — I almost added a `status` column to the desks table and tried to keep it in sync. Then I realized that's a pain and error-prone, so I just check the bookings table every time someone asks for desk status. Adds a tiny bit of query overhead but the data is always correct.
